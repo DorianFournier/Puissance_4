@@ -1,14 +1,16 @@
 from Puissance_4.init import *
 
 winner = False
-plateau = []
+plateau = []                                    # création d'un plateau vide
 
-init_game = Game(plateau, 6, 7)                 # création d'un objet de la class InitGame
-init_game.players()                             # appel de la méthode "players" afin de rentrer les noms utilisateurs et de choisir aléatoirement qui commencera
-init_game.affichage()                           # appel de la méthode "affichage"
+game = Game(plateau, 6, 7)                      # création d'un objet de la class InitGame
+game.players()                                  # appel de la méthode "players" afin de rentrer les noms utilisateurs et de choisir aléatoirement qui commencera
+game.affichage()                                # appel de la méthode "affichage"
 
-while not winner:
-    init_game.placement_j1()
-    init_game.affichage()
-    init_game.placement_j2()
-    init_game.affichage()
+while not winner:                               # tant qu'il n'y a pas de gagnant
+    winner = game.placement_j1()
+    game.affichage()
+    winner = game.placement_j2()
+    game.affichage()
+
+print("Fin de partie !")

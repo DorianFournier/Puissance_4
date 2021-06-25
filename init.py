@@ -9,7 +9,10 @@ class Game:
         self.j2 = j2
         self.plateau = plateau
         self.user_name = None
-        self.counter = 0
+        self.counterJ1 = 21
+        self.counterJ2 = 21
+        self.winner = False
+        self.col_used = {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0}
 
         for lines in range(self.row):
             temp = []
@@ -18,7 +21,7 @@ class Game:
             self.plateau.append(temp)
 
     def affichage(self):
-        print("\nPlateau vide :\n")
+        print("\nPlateau :\n")
         for rw in range(self.row):
             for cl in range(self.col):
                 print(self.plateau[rw][cl], end=' ')
@@ -33,44 +36,76 @@ class Game:
         self.j2 = self.user_name[0]
 
     def placement_j1(self):
-        while True:
-            user_col = int(input("\n{0} doit choisir une colonne (0 à 6):".format(self.j1)))
-            if 0 <= user_col <= 6:
-                break
+        self.counterJ1 = self.counterJ1 - 1
+        if self.counterJ1 >= 0:
+            while True:
+                print(self.counterJ1)
+                user_col = int(input("\n{0} doit choisir une colonne (0 à 6): ".format(self.j1)))
+                if 0 <= user_col <= 6:
+                    if 0 <= self.col_used[str(user_col)] < 6:
+                        break
+                    else:
+                        print("La colonne est pleine, veuillez en choisir une autre !")
 
-        for i in range(6):
-            if self.plateau[i][user_col] == 0 and i == 5:
-                self.plateau[i][user_col] = 1
-                break
-            elif self.plateau[i][user_col] == 1:
-                self.plateau[i - 1][user_col] = 1
-                break
-            elif self.plateau[i][user_col] == 2:
-                self.plateau[i - 1][user_col] = 1
-                break
-        if (self.plateau[i][user_col] == 1) and (self.plateau[i][user_col - 1] == 1) and (self.plateau[i][user_col - 2] == 1) and (self.plateau[i][user_col - 3] == 1):
-            print("{0} gagne !".format(self.j1))
+            self.col_used[str(user_col)] = self.col_used[str(user_col)] + 1
+            print("{0} pions peuvent encore être mis dans la colonne {1}.".format(6 - self.col_used[str(user_col)], user_col))
+
+            for i in range(6):
+                if self.plateau[i][user_col] == 0 and i == 5:
+                    self.plateau[i][user_col] = 1
+                    break
+                elif self.plateau[i][user_col] == 1:
+                    self.plateau[i - 1][user_col] = 1
+                    break
+                elif self.plateau[i][user_col] == 2:
+                    self.plateau[i - 1][user_col] = 1
+                    break
+            if (self.plateau[i][user_col] == 1) and (self.plateau[i][user_col - 1] == 1) and (self.plateau[i][user_col - 2] == 1) and (self.plateau[i][user_col - 3] == 1):
+                print("{0} gagne !".format(self.j1))
+        else:
+            print("Plus de coup disponible")
+            self.winner = True
+            return self.winner
 
     def placement_j2(self):
-        while True:
-            user_col = int(input("\n{0} doit choisir une colonne (0 à 6):".format(self.j2)))
-            if 0 <= user_col <= 6:
-                break
+        self.counterJ2 = self.counterJ2 - 1
+        if self.counterJ2 >= 0:
+            print(self.counterJ2)
+            while True:
+                user_col = int(input("\n{0} doit choisir une colonne (0 à 6): ".format(self.j2)))
+                if 0 <= user_col <= 6:
+                    if 0 <= self.col_used[str(user_col)] < 6:
+                        break
+                    else:
+                        print("La colonne est pleine, veuillez en choisir une autre !")
 
-        for i in range(6):
-            if self.plateau[i][user_col] == 0 and i == 5:
-                self.plateau[i][user_col] = 2
-                break
-            elif self.plateau[i][user_col] == 1:
-                self.plateau[i - 1][user_col] = 2
-                break
-            elif self.plateau[i][user_col] == 2:
-                self.plateau[i - 1][user_col] = 2
-                break
-            if (self.plateau[i][user_col] == 2) and (self.plateau[i][user_col - 1] == 2) and (
-                    self.plateau[i][user_col - 2] == 2) and (self.plateau[i][user_col - 3] == 2):
-                print("{0} gagne !".format(self.j2))
+            self.col_used[str(user_col)] = self.col_used[str(user_col)] + 1
+            print("{0} pions peuvent encore être mis dans la colonne {1}.".format(6 - self.col_used[str(user_col)], user_col))
 
+            for i in range(6):
+                if self.plateau[i][user_col] == 0 and i == 5:
+                    self.plateau[i][user_col] = 2
+                    break
+                elif self.plateau[i][user_col] == 1:
+                    self.plateau[i - 1][user_col] = 2
+                    break
+                elif self.plateau[i][user_col] == 2:
+                    self.plateau[i - 1][user_col] = 2
+                    break
+                if i == 5 and user_col == 0:
+                    if (self.plateau[i][user_col] == 2) and (self.plateau[i][user_col + 1] == 2) and (
+                            self.plateau[i][user_col + 2] == 2) and (self.plateau[i][user_col + 3] == 2):
+                        print("{0} gagne !".format(self.j2))
+                    elif (self.plateau[i][user_col] == 2) and (self.plateau[i-1][user_col] == 2) and (
+                            self.plateau[i-2][user_col] == 2) and (self.plateau[i-3][user_col] == 2):
+                        print("{0} gagne !".format(self.j2))
+                    elif (self.plateau[i][user_col] == 2) and (self.plateau[i-1][user_col+1] == 2) and (
+                            self.plateau[i-2][user_col+2] == 2) and (self.plateau[i-3][user_col+3] == 2):
+                        print("{0} gagne !".format(self.j2))
+        else:
+            print("Plus de coup disponible")
+            self.winner = True
+            return self.winner
 """
     def cherche_haut(self, lig, col):
         if lig == 0:
