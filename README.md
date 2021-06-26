@@ -2,12 +2,12 @@
 
 === WORK IN PROGRESS ===
 
-This project is in work progress
+This project is in progress !
 
 =========================
 
 You'll find here a source code to play at the famous game : The counter 4.
 
-This game had been realized with Python3 only.
+This game had been realized with Python only.
 
 Let's Play !
