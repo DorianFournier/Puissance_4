@@ -2,11 +2,12 @@ from Puissance_4.init import *
 
 endGame = False
 game_status = {}
-plateau = []  # création d'un plateau vide
+plateau = []                # création d'un plateau vide
 
 game = Game(plateau, 6, 7)  # création d'un objet de la class InitGame
-game.players()  # appel de la méthode "players" afin de rentrer les noms utilisateurs et de choisir aléatoirement qui commencera
-game.display()  # appel de la méthode "affichage"
+game.players()              # appel de la méthode "players" afin de rentrer les noms utilisateurs et de choisir aléatoirement qui commencera
+game.display()              # appel de la méthode "affichage"
+
 
 def check_win():
     if (game_status["Egalité"] == 1) or (game_status["Victoire J1"] == 1) or (game_status["Victoire J2"] == 1):

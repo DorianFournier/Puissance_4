@@ -65,11 +65,37 @@ class Game:
                 elif self.plateau[i][user_col] == 2:
                     self.plateau[i - 1][user_col] = 1
                     break
+
+            # Check horizontal locations for win
             for cl in range(self.col - 3):
                 for rw in range(self.row):
                     if self.plateau[rw][cl] == 1 and self.plateau[rw][cl + 1] == 1 and self.plateau[rw][cl + 2] == 1 and \
                             self.plateau[rw][cl + 3] == 1:
-                        print("{0} gagne en {1} coups !".format(self.j1, 21 - self.counterJ1))
+                        print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
+                        self.game_status["Victoire J1"] = 1
+
+            # Check vertical locations for win
+            for c in range(self.col):
+                for r in range(self.row - 3):
+                    if self.plateau[r][c] == 1 and self.plateau[r + 1][c] == 1 and self.plateau[r + 2][c] == 1 and \
+                            self.plateau[r + 3][c] == 1:
+                        print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
+                        self.game_status["Victoire J1"] = 1
+
+            # Check positively sloped diaganols
+            for c in range(self.col - 3):
+                for r in range(self.row - 3):
+                    if self.plateau[r][c] == 1 and self.plateau[r + 1][c + 1] == 1 and self.plateau[r + 2][c + 2] == 1 \
+                            and self.plateau[r + 3][c + 3] == 1:
+                        print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
+                        self.game_status["Victoire J1"] = 1
+
+            # Check negatively sloped diaganols
+            for c in range(self.col - 3):
+                for r in range(3, self.row):
+                    if self.plateau[r][c] == 1 and self.plateau[r - 1][c + 1] == 1 and self.plateau[r - 2][c + 2] == 1 \
+                            and self.plateau[r - 3][c + 3] == 1:
+                        print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
                         self.game_status["Victoire J1"] = 1
 
         else:
@@ -103,11 +129,37 @@ class Game:
                 elif self.plateau[i][user_col] == 2:
                     self.plateau[i - 1][user_col] = 2
                     break
+
+            # Check horizontal locations for win
             for c in range(self.col - 3):
                 for r in range(self.row):
                     if self.plateau[r][c] == 2 and self.plateau[r][c + 1] == 2 and self.plateau[r][c + 2] == 2 and \
                             self.plateau[r][c + 3] == 2:
-                        print("{0} gagne en {1} coups !".format(self.j2, 21 - self.counterJ2))
+                        print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
+                        self.game_status["Victoire J2"] = 1
+
+            # Check vertical locations for win
+            for c in range(self.col):
+                for r in range(self.row - 3):
+                    if self.plateau[r][c] == 2 and self.plateau[r + 1][c] == 2 and self.plateau[r + 2][c] == 2 and \
+                            self.plateau[r + 3][c] == 2:
+                        print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
+                        self.game_status["Victoire J2"] = 1
+
+            # Check positively sloped diaganols
+            for c in range(self.col - 3):
+                for r in range(self.row - 3):
+                    if self.plateau[r][c] == 2 and self.plateau[r + 1][c + 1] == 2 and self.plateau[r + 2][c + 2] == 2 and \
+                            self.plateau[r + 3][c + 3] == 2:
+                        print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
+                        self.game_status["Victoire J2"] = 1
+
+            # Check negatively sloped diaganols
+            for c in range(self.col - 3):
+                for r in range(3, self.row):
+                    if self.plateau[r][c] == 2 and self.plateau[r - 1][c + 1] == 2 and self.plateau[r - 2][c + 2] == 2 and \
+                            self.plateau[r - 3][c + 3] == 2:
+                        print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
                         self.game_status["Victoire J2"] = 1
 
         else:
@@ -147,81 +199,4 @@ class Game:
                     if board[r][c] == piece and board[r - 1][c + 1] == piece and board[r - 2][c + 2] == piece and \
                             board[r - 3][c + 3] == piece:
                         return True
-"""
-"""
-    def cherche_haut(self, lig, col):
-        if lig == 0:
-            return 0
-        elif self.plateau[lig - 1][col] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_haut_droite(self, lig, col):
-        if lig == 0 or col == largeur - 1:
-            return 0
-        if plateau[lig - 1][col + 1] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_haut_gauche(self, lig, col):
-        if lig == 0 or col == 0:
-            return 0
-        if plateau[lig - 1][col - 1] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_droite(self, lig, col):
-        if col == largeur - 1:
-            return 0
-        if plateau[lig][col + 1] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_gauche(self, lig, col):
-        if col == 0:
-            return 0
-        if plateau[lig][col - 1] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_bas_gauche(self, lig, col):
-        if lig == hauteur - 1 or col == 0:
-            return 0
-        if plateau[lig + 1][col - 1] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_bas_droite(self, lig, col):
-        if lig == hauteur - 1 or col == largeur - 1:
-            return 0
-        if plateau[lig + 1][col + 1] == 'M':
-            return 1
-        else:
-            return 0
-
-    def cherche_bas(self, lig, col):
-        if lig == hauteur - 1:
-            return 0
-        if plateau[lig + 1][col] == 'M':
-            return 1
-        else:
-            return 0
-"""
-"""
-                if i == 5 and user_col == 0:
-                    if (self.plateau[i][user_col] == 2) and (self.plateau[i][user_col + 1] == 2) and (
-                            self.plateau[i][user_col + 2] == 2) and (self.plateau[i][user_col + 3] == 2):
-                        print("{0} gagne !".format(self.j2))
-                    elif (self.plateau[i][user_col] == 2) and (self.plateau[i-1][user_col] == 2) and (
-                            self.plateau[i-2][user_col] == 2) and (self.plateau[i-3][user_col] == 2):
-                        print("{0} gagne !".format(self.j2))
-                    elif (self.plateau[i][user_col] == 2) and (self.plateau[i-1][user_col+1] == 2) and (
-                            self.plateau[i-2][user_col+2] == 2) and (self.plateau[i-3][user_col+3] == 2):
-                        print("{0} gagne !".format(self.j2))
 """
