@@ -9,11 +9,11 @@ from random import *
 
 
 class Game:
-    def __init__(self, plateau, row=0, col=0, j1='', j2=''):
+    def __init__(self, plateau, row=0, col=0):
         self.row = row
         self.col = col
-        self.j1 = j1
-        self.j2 = j2
+        self.j1 = ''
+        self.j2 = ''
         self.plateau = plateau
         self.user_name = None
         self.counterJ1 = 21
@@ -58,7 +58,8 @@ class Game:
                         print("La colonne est pleine, veuillez en choisir une autre !")
 
             self.col_used[str(user_col)] = self.col_used[str(user_col)] + 1
-            print("{0} pions peuvent encore être mis dans la colonne {1}.".format(self.row - self.col_used[str(user_col)], user_col))
+            print("{0} pions peuvent encore être mis dans la colonne {1}."
+                  .format(self.row - self.col_used[str(user_col)], user_col))
 
             for i in range(6):
                 if self.plateau[i][user_col] == 0 and i == 5:
@@ -74,32 +75,32 @@ class Game:
             # Regarde s'il y a un alignement horizontal
             for cl in range(self.col - 3):
                 for rw in range(self.row):
-                    if self.plateau[rw][cl] == 1 and self.plateau[rw][cl + 1] == 1 and self.plateau[rw][cl + 2] == 1 and \
-                            self.plateau[rw][cl + 3] == 1:
+                    if self.plateau[rw][cl] == 1 and self.plateau[rw][cl + 1] == 1 and \
+                            self.plateau[rw][cl + 2] == 1 and self.plateau[rw][cl + 3] == 1:
                         print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
                         self.game_status["Victoire J1"] = 1
 
             # Regarde s'il y a un alignement vertical
             for c in range(self.col):
                 for r in range(self.row - 3):
-                    if self.plateau[r][c] == 1 and self.plateau[r + 1][c] == 1 and self.plateau[r + 2][c] == 1 and \
-                            self.plateau[r + 3][c] == 1:
+                    if self.plateau[r][c] == 1 and self.plateau[r + 1][c] == 1 and \
+                            self.plateau[r + 2][c] == 1 and self.plateau[r + 3][c] == 1:
                         print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
                         self.game_status["Victoire J1"] = 1
 
             # Regarde s'il y a un alignement positif diagonal
             for c in range(self.col - 3):
                 for r in range(self.row - 3):
-                    if self.plateau[r][c] == 1 and self.plateau[r + 1][c + 1] == 1 and self.plateau[r + 2][c + 2] == 1 \
-                            and self.plateau[r + 3][c + 3] == 1:
+                    if self.plateau[r][c] == 1 and self.plateau[r + 1][c + 1] == 1 and\
+                            self.plateau[r + 2][c + 2] == 1 and self.plateau[r + 3][c + 3] == 1:
                         print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
                         self.game_status["Victoire J1"] = 1
 
             # Regarde s'il y a un alignement négatif diagonal
             for c in range(self.col - 3):
                 for r in range(3, self.row):
-                    if self.plateau[r][c] == 1 and self.plateau[r - 1][c + 1] == 1 and self.plateau[r - 2][c + 2] == 1 \
-                            and self.plateau[r - 3][c + 3] == 1:
+                    if self.plateau[r][c] == 1 and self.plateau[r - 1][c + 1] == 1 and \
+                            self.plateau[r - 2][c + 2] == 1 and self.plateau[r - 3][c + 3] == 1:
                         print("{0} gagne en {1} coups !".format(self.j1, 22 - self.counterJ1))
                         self.game_status["Victoire J1"] = 1
 
@@ -122,7 +123,8 @@ class Game:
                         print("La colonne est pleine, veuillez en choisir une autre !")
 
             self.col_used[str(user_col)] = self.col_used[str(user_col)] + 1
-            print("{0} pions peuvent encore être mis dans la colonne {1}.".format(self.row - self.col_used[str(user_col)], user_col))
+            print("{0} pions peuvent encore être mis dans la colonne {1}."
+                  .format(self.row - self.col_used[str(user_col)], user_col))
 
             for i in range(6):
                 if self.plateau[i][user_col] == 0 and i == 5:
@@ -135,35 +137,35 @@ class Game:
                     self.plateau[i - 1][user_col] = 2
                     break
 
-            # Check horizontal locations for win
+            # Regarde s'il y a un alignement horizontal
             for c in range(self.col - 3):
                 for r in range(self.row):
-                    if self.plateau[r][c] == 2 and self.plateau[r][c + 1] == 2 and self.plateau[r][c + 2] == 2 and \
-                            self.plateau[r][c + 3] == 2:
+                    if self.plateau[r][c] == 2 and self.plateau[r][c + 1] == 2 and \
+                            self.plateau[r][c + 2] == 2 and self.plateau[r][c + 3] == 2:
                         print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
                         self.game_status["Victoire J2"] = 1
 
-            # Check vertical locations for win
+            # Regarde s'il y a un alignement vertical
             for c in range(self.col):
                 for r in range(self.row - 3):
-                    if self.plateau[r][c] == 2 and self.plateau[r + 1][c] == 2 and self.plateau[r + 2][c] == 2 and \
-                            self.plateau[r + 3][c] == 2:
+                    if self.plateau[r][c] == 2 and self.plateau[r + 1][c] == 2 and \
+                            self.plateau[r + 2][c] == 2 and self.plateau[r + 3][c] == 2:
                         print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
                         self.game_status["Victoire J2"] = 1
 
-            # Check positively sloped diaganols
+            # Regarde s'il y a un alignement positif diagonal
             for c in range(self.col - 3):
                 for r in range(self.row - 3):
-                    if self.plateau[r][c] == 2 and self.plateau[r + 1][c + 1] == 2 and self.plateau[r + 2][c + 2] == 2 and \
-                            self.plateau[r + 3][c + 3] == 2:
+                    if self.plateau[r][c] == 2 and self.plateau[r + 1][c + 1] == 2 and \
+                            self.plateau[r + 2][c + 2] == 2 and self.plateau[r + 3][c + 3] == 2:
                         print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
                         self.game_status["Victoire J2"] = 1
 
-            # Check negatively sloped diaganols
+            # Regarde s'il y a un alignement négatif diagonal
             for c in range(self.col - 3):
                 for r in range(3, self.row):
-                    if self.plateau[r][c] == 2 and self.plateau[r - 1][c + 1] == 2 and self.plateau[r - 2][c + 2] == 2 and \
-                            self.plateau[r - 3][c + 3] == 2:
+                    if self.plateau[r][c] == 2 and self.plateau[r - 1][c + 1] == 2 and \
+                            self.plateau[r - 2][c + 2] == 2 and self.plateau[r - 3][c + 3] == 2:
                         print("{0} gagne en {1} coups !".format(self.j2, 22 - self.counterJ2))
                         self.game_status["Victoire J2"] = 1
 

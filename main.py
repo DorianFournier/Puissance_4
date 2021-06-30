@@ -15,8 +15,8 @@ def check_win():
     :return: la variable endGame (Booléenne)
     """
     if (game_status["Egalité"] == 1) or (game_status["Victoire J1"] == 1) or (game_status["Victoire J2"] == 1):         # si une clé est à 1
-        endGame = True                                                                                                  # passer la variable endGame à True
-        print(game_status)                                                                                              # afficher le dictionnaire
+        endGame = True   # passer la variable endGame à True
+        print("\n", game_status)                                                                                              # afficher le dictionnaire
         return endGame                                                                                                  # retrouner la variable endGame
     else:                                                                                                               # si non
         endGame = False                                                                                                 # passer la variable endGame à False
